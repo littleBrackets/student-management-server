@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'management'
 ]
 
 MIDDLEWARE = [
@@ -69,10 +70,12 @@ TEMPLATES = [
     },
 ]
 
-STATICFILES_DIRS = [
-    # Tell Django where to look for React's static files (css, js)
-    os.path.join(BASE_DIR, "build/static"),
-]
+# STATICFILES_DIRS = [
+#     # Tell Django where to look for React's static files (css, js)
+#     # BASE_DIR / "static",
+#     # "/var/www/static/",
+#     os.path.join(BASE_DIR, "build/static"),
+# ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
@@ -124,9 +127,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'build/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build/static')]
+VENV_PATH = os.path.dirname(BASE_DIR)
+STATIC_ROOT = os.path.join(VENV_PATH, 'static_root')

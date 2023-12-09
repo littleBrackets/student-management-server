@@ -15,16 +15,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import re_path, include
 from django.shortcuts import render
+from rest_framework import routers
+from management import views
 
+router = routers.DefaultRouter()
+router.register(r'signups', views.SignupView, 'management')
+router.register(r'schools', views.SchoolView, 'management')
 
 def render_react(request):
     return render(request, "index.html")
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    re_path(r'^admin/', admin.site.urls),
+    re_path('api/', include(router.urls)),
     re_path(r"^$", render_react),
     re_path(r"^(?:.*)/?$", render_react),
 ]
