@@ -9,3 +9,5 @@ virtualenv myenv
 myenv\Scripts\activate
 
 deactivate
+
+uvicorn main:app --reload
