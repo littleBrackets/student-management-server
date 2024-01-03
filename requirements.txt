@@ -1,0 +1,11 @@
+python3 -m venv myenv
+
+myenv\Scripts\activate
+
+pip install virtualenv
+
+virtualenv myenv
+
+myenv\Scripts\activate
+
+deactivate
