@@ -11,3 +11,5 @@ myenv\Scripts\activate
 deactivate
 
 uvicorn main:app --reload
+
+pip install fastapi uvicorn databases asyncpg
