@@ -1,6 +1,6 @@
 from fastapi import Depends, APIRouter
-from .endpoints import items, users
-from ..dependencies import get_query_token, get_token_header
+from app.routers.endpoints import items, users
+from app.dependencies import get_query_token, get_token_header
 
 router = APIRouter()
 
