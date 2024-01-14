@@ -17,7 +17,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(routers.router, prefix="/api")
+app.include_router(routers.router, prefix="/educatu-server/api")
 
 @app.get("/")
 async def root():
