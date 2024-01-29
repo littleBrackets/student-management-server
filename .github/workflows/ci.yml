@@ -19,7 +19,7 @@ jobs:
       - name: Build and push Docker image
         run: |
           docker build -t cicd-pipeline:v1.0.1 .
-          docker tag cicd-pipeline:latest docker.io/littlebrackets/cicd-pipeline:v1.0.1
+          docker tag cicd-pipeline:v1.0.1 docker.io/littlebrackets/cicd-pipeline:v1.0.1
           docker push docker.io/littlebrackets/cicd-pipeline:v1.0.1
         env:
           DOCKER_CLI_ASK_PASS: 0
