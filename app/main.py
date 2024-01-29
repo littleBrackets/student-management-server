@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import routers
-from config import Config
+from app.routers import routers
+from app.config import Config
 
 app = FastAPI()
 
@@ -25,4 +25,4 @@ app.include_router(routers.router, prefix="/educatu-server/api")
 
 @app.get("/educatu-server")
 async def root():
-    return {"message": "Hello and Welcome to educatu server. docker test 9"}
+    return {"message": "Hello and Welcome to educatu server. docker test 10"}
