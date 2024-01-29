@@ -17,10 +17,10 @@ jobs:
         uses: docker/setup-docker-action@v2
 
       - name: Build Docker image
-        run: docker build -t littlebrackets/educatudocker:latest .
+        run: docker build -t littlebrackets/educatudocker:v1.0.1 .
 
       - name: Log in to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Docker image
-        run: docker push littlebrackets/educatudocker:latest
+        run: docker push littlebrackets/educatudocker:v1.0.1
