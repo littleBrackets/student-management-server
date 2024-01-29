@@ -25,4 +25,4 @@ app.include_router(routers.router, prefix="/educatu-server/api")
 
 @app.get("/educatu-server")
 async def root():
-    return {"message": "Hello and Welcome to educatu server. docker test 8"}
+    return {"message": "Hello and Welcome to educatu server. docker test 9"}
