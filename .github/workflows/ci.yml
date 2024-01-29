@@ -17,4 +17,4 @@ jobs:
     - name: build the docker image  
       run: docker build -t cicd-pipeline .
     - name: push to dockerhub repo
-      run: docker push littlebrackets/educatudocker:latest 
+      run: docker push cicd-pipeline:latest 
