@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Docker Image CI
 
 on:
   push:
@@ -6,21 +6,20 @@ on:
       - main
 
 jobs:
-  build-and-push-docker:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Docker
-        uses: docker/setup-docker-action@v2
+      - name: Login to Docker Hub
+        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
 
-      - name: Build Docker image
-        run: docker build -t littlebrackets/educatudocker:v1.0.1 .
-
-      - name: Log in to Docker Hub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Push Docker image
-        run: docker push littlebrackets/educatudocker:v1.0.1
+      - name: Build and push Docker image
+        run: |
+          docker build -t cicd-pipeline:v1.0.1 .
+          docker tag cicd-pipeline:latest docker.io/littlebrackets/cicd-pipeline:v1.0.1
+          docker push docker.io/littlebrackets/cicd-pipeline:v1.0.1
+        env:
+          DOCKER_CLI_ASK_PASS: 0
