@@ -15,6 +15,6 @@ jobs:
     - name: Login Dockerhub      
       run:  docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
     - name: build the docker image  
-      run: docker build -t cicd-pipeline .
+      run: docker build -t littlebrackets/cicd-pipeline .
     - name: push to dockerhub repo
-      run: docker push cicd-pipeline:latest 
+      run: docker push littlebrackets/cicd-pipeline:latest 
