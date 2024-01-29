@@ -1,14 +1,49 @@
-# Dockerfile
+# name: Docker Image CI
 
-FROM python:3.12
+# on:
+#   push:
+#     branches: [ "main" ] 
 
-WORKDIR /app
+# jobs:
 
-COPY requirements.txt .
+#   build:
 
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+#     runs-on: ubuntu-latest
 
-COPY . .
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: Login Dockerhub      
+#       run:  docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+#     - name: build the docker image  
+#       run: docker build -t littlebrackets/cicd-pipeline:latest .
+#     - name: push to dockerhub repo
+#       run: docker push littlebrackets/cicd-pipeline:latest 
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+
+
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t cicd-pipeline:v1.0.1 .
+          docker tag cicd-pipeline:latest docker.io/littlebrackets/cicd-pipeline:v1.0.1
+          docker push docker.io/littlebrackets/cicd-pipeline:v1.0.1
+        env:
+          DOCKER_CLI_ASK_PASS: 0
