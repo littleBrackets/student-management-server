@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Pull docker image
-        run: sudo docker push littlebrackets/cicd-pipeline:v1.0.1 
+        run: sudo docker pull littlebrackets/cicd-pipeline:v1.0.1 
       - name: Delete old docker image
         run: sudo docker rm -f cicd-pipeline-container || true
       - name: Run docker container
