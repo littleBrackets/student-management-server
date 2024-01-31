@@ -21,8 +21,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(routers.router, prefix="/educatu-server/api")
+app.include_router(routers.router, prefix="/educatu-server-v2/api")
 
-@app.get("/educatu-server")
+@app.get("/educatu-server-v2")
 async def root():
-    return {"message": "Hello and Welcome to educatu server. docker test 17"}
+    return {"message": "Hello and Welcome to educatu server. docker test 18"}
