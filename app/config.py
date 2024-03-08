@@ -12,5 +12,6 @@ class Config:
         "http://ec2-15-207-16-20.ap-south-1.compute.amazonaws.com"
     ]
     API_PREFIX = "/educatu-server/api"
+    ACCESS_TOKEN_EXPIRE_MINUTES = 30
     # Add other configuration variables as needed
 

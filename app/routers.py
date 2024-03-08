@@ -6,4 +6,3 @@ router = APIRouter()
 
 router.include_router(userRouter,prefix="/users")
 router.include_router(itemRouter,prefix="/items")
-
