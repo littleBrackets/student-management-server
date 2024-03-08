@@ -9,8 +9,6 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from app.database import get_db_session
 from .curd import get_user_by_email, get_users
-# from .model import User
-from .schema import UserSchema
 
 app = FastAPI()
 router = APIRouter()
@@ -23,13 +21,13 @@ SECRET_KEY = "4h2xq7daapfgeqr9se8gkclvgvhu54ii712qxonx1qrpc3eiabwu2ugs5dcmn3nl4e
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
-@router.get("/profile", response_model=UserSchema)
+@router.get("/profile")
 def read_users(db: Session = Depends(get_db_session)):
     user = get_user_by_email(db, 'ashish1@gmail.com')
     return user
 
 
-@router.get("/", response_model=list[UserSchema])
+@router.get("/")
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db_session)):
     users = get_users(db, skip=skip, limit=limit)
     return users
