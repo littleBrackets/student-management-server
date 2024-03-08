@@ -1,16 +1,9 @@
 from fastapi import  APIRouter
-from app.users import route as userRoute
-from app.items import route as itemRoute
+from app.users.route import router as userRouter
+from app.items.route import router as itemRouter
 
 router = APIRouter()
 
-router.include_router(
-    userRoute.router,
-    prefix="/users",
-)
-
-router.include_router(
-    itemRoute.router,
-    prefix="/items",
-)
+router.include_router(userRouter,prefix="/users")
+router.include_router(itemRouter,prefix="/items")
 
