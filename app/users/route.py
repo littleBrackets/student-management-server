@@ -9,6 +9,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from app.database import get_db_session
 from .curd import get_user_by_email, get_users
+from app.items.curd import get_item_by_owner
 
 app = FastAPI()
 router = APIRouter()
@@ -22,8 +23,9 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 @router.get("/profile")
-def read_users(db: Session = Depends(get_db_session)):
+def read_user(db: Session = Depends(get_db_session)):
     user = get_user_by_email(db, 'ashish1@gmail.com')
+    user.items = get_item_by_owner(db, user.id)
     return user
 
 
