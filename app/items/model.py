@@ -1,4 +1,5 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
+from pydantic import BaseModel
 from sqlalchemy.orm import relationship
 from app.database import Base
 
@@ -11,3 +12,8 @@ class Item(Base):
     owner_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("User", back_populates="items")
+
+class ResItems(BaseModel):
+    id: int
+    title: str
+    description: str

@@ -1,12 +1,18 @@
-from fastapi import FastAPI, APIRouter, Depends
-from sqlalchemy.orm import Session
-from app.database import get_db_session
+from fastapi import FastAPI, APIRouter, Depends, HTTPException, status
+from typing import List
+from app.dependencies import get_current_user
 from .curd import get_items
+from .model import ResItems
 
 app = FastAPI()
 router = APIRouter()
 
-@router.get("/")
-def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db_session)):
-    items = get_items(db, skip=skip, limit=limit)
+@router.get("/", response_model=List[ResItems])
+def read_users(current_user = Depends(get_current_user), items = Depends(get_items)):
+    if not current_user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Unauthorised access",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
     return items
