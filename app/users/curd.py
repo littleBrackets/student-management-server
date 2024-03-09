@@ -15,7 +15,7 @@ def get_users(db: Session, skip: int = 0, limit: int = 100):
 
 
 def create_user(db: Session, email: str, password: str):
-    db_user = User(id=15, email=email, hashed_password=password, status="ACTIVE")
+    db_user = User(email=email, hashed_password=password, status="ACTIVE")
     db.add(db_user)
     db.commit()
     db.refresh(db_user)

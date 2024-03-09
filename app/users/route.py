@@ -2,8 +2,10 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from datetime import timedelta
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
+from typing import Annotated
+from typing import List
 
-from app.dependencies import authenticate_user, create_access_token, get_current_active_user, get_password_hash
+from app.dependencies import authenticate_user, create_access_token, get_current_user, get_password_hash
 from app.config import Config
 from app.database import get_db_session
 
@@ -18,6 +20,11 @@ class Token(BaseModel):
 class AuthModel(BaseModel):
     email: str
     password: str
+
+class User(BaseModel):
+    id: int
+    email: str
+    status: str
 
 
 @router.post("/login")
@@ -34,7 +41,6 @@ def read_users(form_data: AuthModel, db: Session = Depends(get_db_session)):
         data={"sub": user.email}, expires_delta=access_token_expires
     )
     return Token(access_token=access_token, token_type="bearer")
-
 
 
 @router.post("/signup")
@@ -55,8 +61,8 @@ def read_users(form_data: AuthModel, db: Session = Depends(get_db_session)):
 
 
 
-@router.get("/profile")
-async def read_users(current_user: object = Depends(get_current_active_user)):
+@router.get("/profile", response_model=User)
+async def read_users(current_user = Depends(get_current_user)):
     if not current_user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -65,13 +71,14 @@ async def read_users(current_user: object = Depends(get_current_active_user)):
         )
     return current_user
 
-@router.get("/")
-def read_users(skip: int = 0, limit: int = 100, current_user: object = Depends(get_current_active_user)):
+
+@router.get("/", response_model=List[User])
+def read_users(current_user = Depends(get_current_user), skip: int = 0, limit: int = 100, db: Session = Depends(get_db_session)):
     if not current_user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Unauthorised access",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    users = get_users(skip=skip, limit=limit)
+    users = get_users(db, skip=skip, limit=limit)
     return users
