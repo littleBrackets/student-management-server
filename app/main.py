@@ -1,6 +1,5 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy.orm import Session
 
 from app.routers import router
 from app.config import API_PREFIX, ORIGINS

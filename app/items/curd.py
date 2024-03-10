@@ -18,3 +18,25 @@ def create_item(db: Session, id: int, title: str, description: str):
     db.commit()
     db.refresh(db_item)
     return db_item  
+
+
+def update_item(db: Session, id: int, title: str, description: str):
+    db_item = db.query(Item).filter(Item.id == id).first()
+    if db_item:
+        db_item.title = title
+        db_item.description = description
+        db.commit()
+        db.refresh(db_item)
+        return db_item
+    else:
+        return None
+
+
+def delete_item(db: Session, id: int):
+    db_item = db.query(Item).filter(Item.id == id).first()
+    if db_item:
+        db.delete(db_item)
+        db.commit()
+        return True
+    else:
+        return None

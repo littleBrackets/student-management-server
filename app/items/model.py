@@ -8,7 +8,6 @@ current_datetime = datetime.now()
 
 class Item(Base):
     __tablename__ = "items"
-
     id = Column(Integer, primary_key=True)
     title = Column(String, index=True)
     description = Column(String, index=True)
