@@ -3,11 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
 from app.routers import router
-from app.config import Config
+from app.config import API_PREFIX, ORIGINS
 
 app = FastAPI()
 
-origins = Config.ORIGINS
+origins = ORIGINS
 
 app.add_middleware(
     CORSMiddleware,
@@ -17,7 +17,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(router, prefix=Config.API_PREFIX)
+app.include_router(router, prefix=API_PREFIX)
 
 @app.get("/educatu-server")
 async def root():

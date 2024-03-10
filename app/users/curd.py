@@ -10,12 +10,23 @@ def get_user_by_email(db: Session, email: str):
     return db.query(User).filter(User.email == email).first()
 
 
+def get_user_by_username(db: Session, username: str):
+    return db.query(User).filter(User.username == username).first()
+
+
 def get_users(db: Session, skip: int = 0, limit: int = 100):
     return db.query(User).offset(skip).limit(limit).all()
 
 
 def create_user(db: Session, email: str, password: str):
     db_user = User(email=email, hashed_password=password, status="ACTIVE")
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+def create_user_v2(db: Session, username: str, fullname: str, email: str, password: str):
+    db_user = User(username=username, full_name=fullname, email=email, password=password, disabled=False)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
