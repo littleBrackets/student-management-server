@@ -1,13 +1,15 @@
-from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy import Boolean, Column, Integer, String, Date
 from sqlalchemy.orm import relationship
 from app.database import Base
+from datetime import datetime
 
+current_datetime = datetime.now()
 
 class User(Base):
     __tablename__ = "users"
 
     username = Column(String, primary_key=True)
-    full_name = Column(String)
-    email = Column(String, unique=True)
     password = Column(String)
-    disabled = Column(Boolean, default=False)
+    created_at = Column(Date, default=current_datetime.strftime("%Y-%m-%d %H:%M:%S"))
+    updated_at = Column(Date, default=current_datetime.strftime("%Y-%m-%d %H:%M:%S"))
+    status = Column(String, default="PENDING")

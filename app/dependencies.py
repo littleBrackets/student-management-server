@@ -6,7 +6,7 @@ from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
 from app.database import get_db_session
-from app.users.curd import get_user_by_username, create_user_v2
+from app.users.curd import get_user_by_username
 from app.config import TOKEN_SECRET_KEY, TOKEN_ALGORITHM, TOKEN_EXPIRE_MINUTES
 
 
