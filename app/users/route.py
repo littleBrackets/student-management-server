@@ -44,7 +44,11 @@ async def login_for_access_token(form_data: ReqUserSignupModel, db: Session = De
     user = create_user(db, form_data.username, password=hashed_password)
     if not user:
         raise HTTPException(status_code=401, detail="Failed to create user")
-    return
+    access_token_expires = timedelta(minutes=TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
 
 
 # Route for token generation
