@@ -57,7 +57,7 @@ def create_item(form_data: ReqClassModel, db: Session = Depends(get_db_session),
             detail="Faild to create item",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    return
+    return item
 
 
 
