@@ -42,7 +42,7 @@ def read_item(id: int, current_user = Depends(get_current_user), db: Session = D
 
 
 
-@router.post("/create",  status_code=status.HTTP_201_CREATED)
+@router.post("/create", response_model=ResSubjectModel, status_code=status.HTTP_201_CREATED)
 def create_item(form_data: ReqSubjectModel, db: Session = Depends(get_db_session), current_user = Depends(get_current_user)):
     if not current_user:
         raise HTTPException(
