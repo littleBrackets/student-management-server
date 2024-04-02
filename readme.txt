@@ -11,5 +11,6 @@ pip install "passlib[bcrypt]"
 pip install sqlalchemy
 pip install psycopg2
 pip install python-multipart
+pip install weasyprint
 
 
