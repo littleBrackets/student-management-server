@@ -22,6 +22,6 @@ init_db()
 app.include_router(router, prefix=API_PREFIX)
 
 
-@app.get("/educatu-server")
+@app.get("/")
 async def root():
     return {"message": "Hello and Welcome to educatu server."}
