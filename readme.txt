@@ -20,3 +20,7 @@ pip install weasyprint
 pip install pdfkit
 
 uvicorn app.main:app --host 0.0.0.0 --port 8021
+
+docker build -t educatuserver:1.0.1 .
+
+docker run -p 8021:8021 educatuserver:v1.0
